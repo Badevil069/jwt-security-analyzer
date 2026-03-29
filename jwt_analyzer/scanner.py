@@ -2,6 +2,7 @@
 
 import jwt
 import warnings
+import os
 from rich.table import Table
 
 from .checks import (
@@ -41,17 +42,23 @@ def _colorize_detail(detail: str, status: str) -> str:
     return detail
 
 
-def analyze_token(token: str, secrets_file: str = "secrets.txt") -> tuple[Table, list, dict]:
+def analyze_token(token: str, secrets_file: str = None) -> tuple[Table, list, dict]:
     """
     Analyze a JWT token for security vulnerabilities.
     
     Args:
         token: JWT token string
-        secrets_file: Path to weak secrets file
+        secrets_file: Path to weak secrets file. If None, uses secrets.txt in project root.
         
     Returns:
         Tuple of (rich.Table for display, list of check results, risk assessment dict)
     """
+    # Use default secrets file location if not provided
+    if secrets_file is None:
+        # Get the path to the project root (parent of jwt_analyzer package)
+        current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        secrets_file = os.path.join(current_dir, "secrets.txt")
+    
     results = []
     
     # Suppress security warnings
@@ -151,7 +158,7 @@ def analyze_token(token: str, secrets_file: str = "secrets.txt") -> tuple[Table,
     return table, results, risk_assessment
 
 
-def run_scanner(token: str, secrets_file: str = "secrets.txt") -> Table:
+def run_scanner(token: str, secrets_file: str = None) -> Table:
     """
     Run the scanner and return the analysis table.
     
@@ -159,7 +166,7 @@ def run_scanner(token: str, secrets_file: str = "secrets.txt") -> Table:
     
     Args:
         token: JWT token string
-        secrets_file: Path to weak secrets file
+        secrets_file: Path to weak secrets file. If None, uses secrets.txt in project root.
         
     Returns:
         Rich Table containing the analysis results

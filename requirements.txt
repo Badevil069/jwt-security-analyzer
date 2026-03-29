@@ -1,4 +1,4 @@
-pyjwt==2.8.1
+pyjwt==2.12.1
 cryptography==41.0.7
 click==8.1.7
 rich==13.7.0

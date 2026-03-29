@@ -27,12 +27,63 @@ A production-grade JWT security analyzer that identifies critical authentication
 
 ### Prerequisites
 - Python 3.8+
-- pip
+- Git
+- pip/pip3
 
-### Local Setup
+### GitHub Clone & Setup
+
+#### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/yourusername/jwt-analyzer
-cd jwt-analyzer
+# Clone from GitHub
+git clone https://github.com/Badevil069/jwt-security-analyzer.git
+cd jwt-security-analyzer
+```
+
+#### Step 2: Navigate to Project Directory
+```bash
+# The project has a nested structure, go into the nested folder
+cd jwt-security-analyzer-main
+```
+
+### Linux / Kali Linux Installation
+
+#### Automated Setup (Recommended)
+```bash
+# Make setup script executable
+chmod +x setup-linux.sh
+
+# Run automated setup
+bash setup-linux.sh
+
+# Activate virtual environment
+source venv/bin/activate
+```
+
+#### Manual Setup
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Windows Installation
+```bash
+# Clone and navigate
+git clone https://github.com/Badevil069/jwt-security-analyzer.git
+cd jwt-security-analyzer\jwt-security-analyzer-main
+
+# Create virtual environment
+python -m venv venv
+
+# Activate virtual environment (Windows)
+venv\Scripts\activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
@@ -44,22 +95,101 @@ docker run -v $(pwd)/reports:/app/reports jwt-analyzer scan <token>
 
 ## 🛠️ Usage
 
-### Command Line
+### Kali Linux Terminal Commands
+
+#### Quick Start
 ```bash
-# Analyze a JWT token
-python main.py scan eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+# Make sure venv is activated
+source venv/bin/activate
 
-# View interactive dashboard
-python main.py scan <token>
+# Scan a JWT token
+python main.py scan "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+```
 
-# Generate PDF report
-python main.py scan <token>  # PDF auto-generated as report.pdf
+#### Common Commands on Kali Linux
+```bash
+# Analyze a JWT token with table output
+python main.py scan "<YOUR_JWT_TOKEN>"
+
+# JSON output (for automation/scripting)
+python main.py scan "<YOUR_JWT_TOKEN>" --json
+
+# Custom report filename
+python main.py scan "<YOUR_JWT_TOKEN>" -o custom_report.pdf
+
+# Suppress banner (minimal output)
+python main.py scan "<YOUR_JWT_TOKEN>" --no-banner
+
+# Show help
+python main.py --help
+
+# Show scan command help
+python main.py scan --help
+```
+
+#### Complete Kali Linux Workflow
+```bash
+# 1. Clone repository
+git clone https://github.com/Badevil069/jwt-security-analyzer.git
+cd jwt-security-analyzer/jwt-security-analyzer-main
+
+# 2. Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Run the analyzer
+python main.py scan "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+
+# 5. View results
+cat report.pdf    # View generated PDF report
+
+# 6. Run with JSON output
+python main.py scan "<TOKEN>" --json > results.json
+```
+
+#### Kali Linux Virtual Environment Tips
+```bash
+# If not in virtual environment, activate it
+source venv/bin/activate
+
+# Verify venv is active (should show (venv) prefix in terminal)
+which python
+
+# Deactivate when done
+deactivate
+
+# Using without activation (if needed)
+./venv/bin/python main.py scan "<TOKEN>"
+```
+
+### Other Platform Commands
+
+#### Windows PowerShell
+```powershell
+# Activate virtual environment
+.\venv\Scripts\activate
+
+# Scan token
+python main.py scan "<YOUR_JWT_TOKEN>"
+
+# JSON output
+python main.py scan "<YOUR_JWT_TOKEN>" --json
+```
+
+#### macOS/Linux
+```bash
+# Same as Kali Linux (see above)
+source venv/bin/activate
+python main.py scan "<YOUR_JWT_TOKEN>"
 ```
 
 ### Docker
 ```bash
-docker run jwt-analyzer scan eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-docker run -v $(pwd)/reports:/app/reports jwt-analyzer scan <token>
+docker run jwt-analyzer scan "<YOUR_JWT_TOKEN>"
+docker run -v $(pwd)/reports:/app/reports jwt-analyzer scan "<YOUR_JWT_TOKEN>"
 ```
 
 ## 📋 Understanding Results

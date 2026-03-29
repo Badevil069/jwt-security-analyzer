@@ -4,17 +4,24 @@ import jwt
 import os
 
 
-def check_weak_secret(token: str, secrets_file: str = "secrets.txt") -> dict:
+def check_weak_secret(token: str, secrets_file: str = None) -> dict:
     """
     Check if JWT can be decoded with weak secrets.
     
     Args:
         token: JWT token string
-        secrets_file: Path to file containing weak secrets (one per line)
+        secrets_file: Path to file containing weak secrets (one per line).
+                     If None, uses secrets.txt in the project root.
         
     Returns:
         Dictionary with vulnerability details or None
     """
+    # Use default secrets file location if not provided
+    if secrets_file is None:
+        # Get the path to the project root (parent of jwt_analyzer package)
+        current_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        secrets_file = os.path.join(current_dir, "secrets.txt")
+    
     # Check if secrets file exists
     if not os.path.exists(secrets_file):
         return {
