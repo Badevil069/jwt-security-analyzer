@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  jwt-analyzer:
+    build: .
+    image: jwt-analyzer:latest
+    container_name: jwt-analyzer
+    volumes:
+      - ./reports:/app/reports
+      - ./secrets.txt:/app/secrets.txt:ro
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: --help
+    stdin_open: true
+    tty: true
