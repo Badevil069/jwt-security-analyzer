@@ -39,12 +39,6 @@ git clone https://github.com/Badevil069/jwt-security-analyzer.git
 cd jwt-security-analyzer
 ```
 
-#### Step 2: Navigate to Project Directory
-```bash
-# The project has a nested structure, go into the nested folder
-cd jwt-security-analyzer-main
-```
-
 ### Linux / Kali Linux Installation
 
 #### Automated Setup (Recommended)
@@ -75,7 +69,7 @@ pip install -r requirements.txt
 ```bash
 # Clone and navigate
 git clone https://github.com/Badevil069/jwt-security-analyzer.git
-cd jwt-security-analyzer\jwt-security-analyzer-main
+cd jwt-security-analyzer
 
 # Create virtual environment
 python -m venv venv
@@ -131,7 +125,7 @@ python main.py scan --help
 ```bash
 # 1. Clone repository
 git clone https://github.com/Badevil069/jwt-security-analyzer.git
-cd jwt-security-analyzer/jwt-security-analyzer-main
+cd jwt-security-analyzer
 
 # 2. Create and activate virtual environment
 python3 -m venv venv
